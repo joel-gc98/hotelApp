@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="10" xmlns:fx="http://javafx.com/fxml" fx:controller="com.gui.hotelapp.HotelController">
+    <padding><Insets top="15" right="15" bottom="15" left="15"/></padding>
+
+    <Label text="Hotel Sol · Reservas" style="-fx-font-size: 18; -fx-font-weight: bold;"/>
+
+    <TableView fx:id="tablaHabitaciones" prefHeight="300">
+        <columns>
+            <TableColumn fx:id="colNumero" text="N.º"/>
+            <TableColumn fx:id="colTipo" text="Tipo"/>
+            <TableColumn fx:id="colCapacidad" text="Capacidad"/>
+            <TableColumn fx:id="colPrecio" text="Precio/noche"/>
+            <TableColumn fx:id="colEstado" text="Estado"/>
+        </columns>
+    </TableView>
+
+    <HBox spacing="10">
+        <TextField fx:id="txtNumero" promptText="Número de habitación"/>
+        <Button text="Buscar" onAction="#buscar"/>
+    </HBox>
+
+    <Label fx:id="lblResultado" text="Introduce un número y pulsa Buscar"/>
+</VBox>
