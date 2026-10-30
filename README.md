@@ -178,11 +178,11 @@ A continuación se muestran las evidencias del proceso de rediseño:
 
 #### Interfaz original
 
-[CLICK AQUI](docs/interfaz_inicial.png)
+[CLICK AQUI](docs/imagenes/interfaz_inicial.png)
 
 #### Interfaz final implementada
 
-[CLICK AQUI](docs/interfaz_final.png)
+[CLICK AQUI](docs/imagenes/interfaz_final.png)
 
 Para consultar la explicación detallada de los problemas detectados, los conceptos de accesibilidad y la justificación de las mejoras, visita la [documentación de accesibilidad](docs/ACCESIBILIDAD.md).
 
