@@ -1,27 +1,93 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
-<VBox spacing="10" xmlns:fx="http://javafx.com/fxml" fx:controller="com.gui.hotelapp.HotelController">
-    <padding><Insets top="15" right="15" bottom="15" left="15"/></padding>
+<VBox spacing="16"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.gui.hotelapp.HotelController"
+      styleClass="hotel-root">
 
-    <Label text="Hotel Sol · Reservas" style="-fx-font-size: 18; -fx-font-weight: bold;"/>
+    <padding>
+        <Insets top="24" right="24" bottom="24" left="24"/>
+    </padding>
 
-    <TableView fx:id="tablaHabitaciones" prefHeight="300">
-        <columns>
-            <TableColumn fx:id="colNumero" text="N.º"/>
-            <TableColumn fx:id="colTipo" text="Tipo"/>
-            <TableColumn fx:id="colCapacidad" text="Capacidad"/>
-            <TableColumn fx:id="colPrecio" text="Precio/noche"/>
-            <TableColumn fx:id="colEstado" text="Estado"/>
-        </columns>
-    </TableView>
+    <!-- ENCABEZADO -->
+    <VBox spacing="5">
+        <Label text="Hotel Sol"
+               styleClass="titulo-principal"/>
 
-    <HBox spacing="10">
-        <TextField fx:id="txtNumero" promptText="Número de habitación"/>
-        <Button text="Buscar" onAction="#buscar"/>
-    </HBox>
+        <Label text="Gestión de habitaciones y reservas"
+               styleClass="subtitulo"/>
+    </VBox>
 
-    <Label fx:id="lblResultado" text="Introduce un número y pulsa Buscar"/>
+    <!-- TABLA -->
+    <VBox spacing="10" VBox.vgrow="ALWAYS">
+
+        <Label text="Habitaciones disponibles"
+               styleClass="titulo-seccion"/>
+
+        <TableView fx:id="tablaHabitaciones"
+                   prefHeight="280"
+                   VBox.vgrow="ALWAYS"
+                   accessibleText="Listado de habitaciones del hotel">
+
+            <columns>
+                <TableColumn fx:id="colNumero"
+                             text="N.º habitación"
+                             prefWidth="110"/>
+
+                <TableColumn fx:id="colTipo"
+                             text="Tipo"
+                             prefWidth="110"/>
+
+                <TableColumn fx:id="colCapacidad"
+                             text="Capacidad"
+                             prefWidth="100"/>
+
+                <TableColumn fx:id="colPrecio"
+                             text="Precio/noche"
+                             prefWidth="120"/>
+
+                <TableColumn fx:id="colEstado"
+                             text="Estado"
+                             prefWidth="120"/>
+            </columns>
+        </TableView>
+    </VBox>
+
+    <!-- BÚSQUEDA -->
+    <VBox spacing="12" styleClass="panel-busqueda">
+
+        <Label text="Consultar habitación"
+               styleClass="titulo-seccion"/>
+
+        <Label fx:id="lblNumero"
+               text="Número de habitación:"
+               labelFor="$txtNumero"/>
+
+        <HBox spacing="12" alignment="CENTER_LEFT">
+
+            <TextField fx:id="txtNumero"
+                       promptText="Ej. 112"
+                       accessibleText="Número de habitación"
+                       accessibleHelp="Introduce el número de habitación que quieres consultar."
+                       HBox.hgrow="ALWAYS"/>
+
+            <Button text="_Buscar"
+                    mnemonicParsing="true"
+                    defaultButton="true"
+                    onAction="#buscar"
+                    styleClass="boton-principal"
+                    accessibleText="Buscar habitación"/>
+        </HBox>
+
+        <Label fx:id="lblResultado"
+               text="Introduce un número de habitación para consultar su estado."
+               wrapText="true"
+               styleClass="resultado"/>
+
+    </VBox>
+
 </VBox>
