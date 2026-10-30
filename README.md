@@ -41,8 +41,6 @@ Antes de ejecutar el proyecto, asegúrate de tener instalado:
 
 ### 1. Clonar el repositorio
 
-Abre una terminal y ejecuta:
-
 ```bash
 git clone https://github.com/joel-gc98/hotelApp.git
 ```
@@ -81,6 +79,13 @@ hotelApp/
 ├── .idea/
 ├── .mvn/
 │   └── wrapper/
+├── docs/
+│   ├── ACCESIBILIDAD.md
+│   └── imagenes/
+│       ├── interfaz-original.png
+│       ├── wireframe-inicial.png
+│       ├── mockup-mejorado.png
+│       └── interfaz-final.png
 ├── src/
 │   └── main/
 │       ├── java/
@@ -94,10 +99,12 @@ hotelApp/
 │       │               ├── Habitacion.java
 │       │               └── ...
 │       └── resources/
-│           └── reservas.xml
-│           └── com.gui.hotelapp/
+│           ├── reservas.xml
+│           └── com/
+│               └── gui/
+│                   └── hotelapp/
 │                       ├── vista.fxml
-│                       └── estilos.css                       
+│                       └── estilos.css
 ├── .gitignore
 ├── mvnw
 ├── mvnw.cmd
@@ -109,17 +116,17 @@ hotelApp/
 
 - **`HelloApplication.java`**: clase de entrada que inicia la aplicación JavaFX, configura el tema visual de AtlantaFX y carga la vista principal junto con su hoja de estilos CSS.
 - **`HotelController.java`**: controla las interacciones de la interfaz, la búsqueda de habitaciones, la validación de los campos y la presentación de resultados.
-- **`HotelRepository.java`**: encargado de recuperar la información de las habitaciones almacenada en el archivo XML.
+- **`HotelRepository.java`**: recupera la información de las habitaciones almacenada en el archivo XML.
 - **`Habitacion.java`**: modelo que representa los datos de una habitación.
 - **`vista.fxml`**: define la estructura de la interfaz gráfica mediante FXML.
-- **`hotel.css`**: contiene los estilos personalizados de la aplicación.
+- **`estilos.css`**: contiene los estilos personalizados de la aplicación.
 - **`reservas.xml`**: archivo XML que almacena los datos utilizados por la aplicación.
 - **`pom.xml`**: archivo de configuración de Maven, donde se definen las dependencias, la versión de Java y los plugins necesarios.
 - **`module-info.java`**: declara los módulos y paquetes necesarios para el funcionamiento de la aplicación.
 
 ## ♿ Accesibilidad y mejoras de interfaz
 
-Se ha trabajado en el rediseño de la pantalla de gestión de habitaciones con el objetivo de mejorar la experiencia de usuario y facilitar el acceso a la información.
+Se ha realizado un rediseño de la pantalla de gestión de habitaciones para mejorar la legibilidad, la organización visual y la facilidad de uso.
 
 ### Problemas detectados inicialmente
 
@@ -135,22 +142,22 @@ Se ha trabajado en el rediseño de la pantalla de gestión de habitaciones con e
 **1. Contraste y legibilidad**
 
 - Incorporación de una paleta de colores basada en tonos azules, blancos y grises.
-- Mejora de la diferenciación visual entre los distintos componentes.
 - Personalización de los encabezados y filas de la tabla.
-- Aumento de la jerarquía visual mediante títulos y subtítulos.
+- Diferenciación visual de las filas pares e impares.
+- Mejora de la jerarquía visual mediante títulos y subtítulos.
 
 **2. Etiquetas y campos de entrada**
 
 - Incorporación de etiquetas visibles y descriptivas.
 - Asociación de etiquetas con sus respectivos campos.
-- Uso de propiedades `accessibleText` y `accessibleHelp` para proporcionar información adicional sobre los controles.
+- Uso de las propiedades `accessibleText` y `accessibleHelp` para proporcionar información adicional sobre los controles.
 
 **3. Navegación mediante teclado**
 
 - Incorporación del atajo `Ctrl + F` para acceder directamente al campo de búsqueda.
 - Configuración del botón Buscar como acción predeterminada.
 - Uso de indicadores visuales para identificar el control que recibe el foco.
-- Aprovechamiento de la navegación por teclado proporcionada por los controles JavaFX.
+- Aprovechamiento de la navegación por teclado proporcionada por JavaFX.
 
 **4. Diferenciación de estados**
 
@@ -165,24 +172,19 @@ Se ha trabajado en el rediseño de la pantalla de gestión de habitaciones con e
 - Creación de una hoja de estilos CSS independiente.
 - Mejora de los espacios y dimensiones de los componentes.
 
-### Tecnologías aplicadas
-
-- **AtlantaFX:** aplicación de un tema visual mediante `PrimerLight`.
-- **ControlsFX:** incorporación de herramientas adicionales para la validación de campos.
-- **CSS:** personalización de los estilos y estados visuales.
-- **JavaFX:** gestión de eventos, controles y navegación mediante teclado.
-
 ### Evidencias visuales
 
-Se incluirán capturas y prototipos para mostrar la evolución de la interfaz:
+A continuación se muestran las evidencias del proceso de rediseño:
 
-| Evidencia         | Descripción                                                  |
-| ----------------- | ------------------------------------------------------------ |
-| Wireframe inicial | Representación de la estructura original de la pantalla.     |
-| Mockup mejorado   | Propuesta visual del rediseño.                               |
-| Interfaz final    | Captura de la aplicación después de implementar las mejoras. |
+#### Interfaz original
 
-Para consultar el proceso de rediseño y su justificación con mayor detalle, se puede consultar la documentación específica de accesibilidad en [`docs/ACCESIBILIDAD.md`](docs/ACCESIBILIDAD.md).
+[CLICK AQUI](docs/interfaz_inicial.png)
+
+#### Interfaz final implementada
+
+[CLICK AQUI](docs/interfaz_final.png)
+
+Para consultar la explicación detallada de los problemas detectados, los conceptos de accesibilidad y la justificación de las mejoras, visita la [documentación de accesibilidad](docs/ACCESIBILIDAD.md).
 
 ## 🧪 Pruebas
 
