@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<ScrollPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.gui.hotelapp.ReservasController"
+            fitToWidth="true"
+            hbarPolicy="NEVER"
+            styleClass="hotel-scroll">
+
+    <VBox spacing="16" styleClass="hotel-root">
+
+        <padding>
+            <Insets top="24" right="24" bottom="24" left="24"/>
+        </padding>
+
+        <!-- FORMULARIO -->
+        <VBox spacing="12" styleClass="panel-formulario">
+
+            <Label text="Nueva reserva" styleClass="titulo-seccion"/>
+
+            <!-- Los controles van antes que su etiqueta para que labelFor funcione
+                 y el orden de tabulación siga el orden de lectura. -->
+            <GridPane hgap="16" vgap="6">
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="33.33" hgrow="ALWAYS"/>
+                    <ColumnConstraints percentWidth="33.33" hgrow="ALWAYS"/>
+                    <ColumnConstraints percentWidth="33.34" hgrow="ALWAYS"/>
+                </columnConstraints>
+
+                <!-- Fila 1: nombre, apellidos y correo -->
+                <TextField fx:id="txtNombre" styleClass="campo" maxWidth="Infinity"
+                           GridPane.columnIndex="0" GridPane.rowIndex="1"
+                           promptText="Ej. Ana"
+                           accessibleText="Nombre del cliente"
+                           accessibleHelp="Campo obligatorio."/>
+                <Label fx:id="lblNombre" text="_Nombre" mnemonicParsing="true"
+                       GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+
+                <TextField fx:id="txtApellidos" styleClass="campo" maxWidth="Infinity"
+                           GridPane.columnIndex="1" GridPane.rowIndex="1"
+                           promptText="Ej. García López"
+                           accessibleText="Apellidos del cliente"
+                           accessibleHelp="Campo obligatorio."/>
+                <Label fx:id="lblApellidos" text="_Apellidos" mnemonicParsing="true"
+                       GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                <TextField fx:id="txtEmail" styleClass="campo" maxWidth="Infinity"
+                           GridPane.columnIndex="2" GridPane.rowIndex="1"
+                           promptText="nombre@dominio.com"
+                           accessibleText="Correo electrónico del cliente"
+                           accessibleHelp="Campo obligatorio. Formato nombre@dominio.com."/>
+                <Label fx:id="lblEmail" text="_Email" mnemonicParsing="true"
+                       GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+
+                <!-- Fila 2: habitación y personas -->
+                <ComboBox fx:id="cmbHabitacion" maxWidth="Infinity"
+                          GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="3"
+                          promptText="Elige una habitación"
+                          accessibleText="Habitación"
+                          accessibleHelp="Solo se muestran las habitaciones disponibles."/>
+                <Label fx:id="lblHabitacion" text="_Habitación (solo disponibles)" mnemonicParsing="true"
+                       GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2"/>
+
+                <Spinner fx:id="spnPersonas" maxWidth="Infinity"
+                         GridPane.columnIndex="2" GridPane.rowIndex="3"
+                         accessibleText="Número de personas"
+                         accessibleHelp="Entre 1 y la capacidad de la habitación elegida."/>
+                <Label fx:id="lblPersonas" text="_Personas" mnemonicParsing="true"
+                       GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+
+                <!-- Fila 3: fechas y observaciones -->
+                <DatePicker fx:id="dpEntrada" maxWidth="Infinity"
+                            GridPane.columnIndex="0" GridPane.rowIndex="5"
+                            promptText="dd/mm/aaaa"
+                            accessibleText="Fecha de entrada"
+                            accessibleHelp="Escribe la fecha con formato día barra mes barra año."/>
+                <Label fx:id="lblEntrada" text="Fecha de en_trada" mnemonicParsing="true"
+                       GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+
+                <DatePicker fx:id="dpSalida" maxWidth="Infinity"
+                            GridPane.columnIndex="1" GridPane.rowIndex="5"
+                            promptText="dd/mm/aaaa"
+                            accessibleText="Fecha de salida"
+                            accessibleHelp="Debe ser posterior a la fecha de entrada."/>
+                <Label fx:id="lblSalida" text="Fecha de _salida" mnemonicParsing="true"
+                       GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+
+                <TextField fx:id="txtObservaciones" styleClass="campo" maxWidth="Infinity"
+                           GridPane.columnIndex="2" GridPane.rowIndex="5"
+                           promptText="Opcional"
+                           accessibleText="Observaciones"
+                           accessibleHelp="Campo opcional."/>
+                <Label fx:id="lblObservaciones" text="_Observaciones (opcional)" mnemonicParsing="true"
+                       GridPane.columnIndex="2" GridPane.rowIndex="4"/>
+            </GridPane>
+
+            <Label fx:id="lblResultado"
+                   text="Completa los datos y pulsa Reservar."
+                   wrapText="true"
+                   minHeight="-Infinity"
+                   maxWidth="Infinity"
+                   styleClass="resultado"/>
+
+            <HBox spacing="12" alignment="CENTER_LEFT">
+                <Button fx:id="btnReservar"
+                        text="_Reservar"
+                        mnemonicParsing="true"
+                        onAction="#reservar"
+                        styleClass="boton-principal"
+                        accessibleText="Reservar habitación"/>
+
+                <Button text="_Limpiar"
+                        mnemonicParsing="true"
+                        onAction="#limpiar"
+                        styleClass="boton-secundario"
+                        accessibleText="Limpiar formulario"/>
+
+                <Label fx:id="lblResumen"
+                       text="Elige habitación y fechas para ver el importe estimado."
+                       wrapText="true"
+                       minHeight="-Infinity"
+                       HBox.hgrow="ALWAYS"
+                       maxWidth="Infinity"
+                       styleClass="resumen"/>
+            </HBox>
+        </VBox>
+
+        <!-- TABLA DE RESERVAS -->
+        <VBox spacing="10">
+
+            <Label text="Reservas registradas" styleClass="titulo-seccion"/>
+
+            <TableView fx:id="tablaReservas"
+                       prefHeight="260"
+                       accessibleText="Listado de reservas del hotel">
+                <columnResizePolicy>
+                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                </columnResizePolicy>
+                <columns>
+                    <TableColumn fx:id="colCodigo" text="Código" prefWidth="80"/>
+                    <TableColumn fx:id="colCliente" text="Cliente" prefWidth="180"/>
+                    <TableColumn fx:id="colHabitacion" text="Hab." prefWidth="60"/>
+                    <TableColumn fx:id="colEntrada" text="Entrada" prefWidth="100"/>
+                    <TableColumn fx:id="colSalida" text="Salida" prefWidth="100"/>
+                    <TableColumn fx:id="colPersonas" text="Personas" prefWidth="80"/>
+                    <TableColumn fx:id="colEstado" text="Estado" prefWidth="130"/>
+                </columns>
+            </TableView>
+        </VBox>
+
+    </VBox>
+</ScrollPane>

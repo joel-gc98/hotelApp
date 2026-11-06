@@ -20,19 +20,24 @@ public class HelloApplication extends Application {
         );
 
         FXMLLoader loader = new FXMLLoader(
-                HelloApplication.class.getResource("vista.fxml")
+                HelloApplication.class.getResource("principal.fxml")
         );
 
-        Scene scene = new Scene(loader.load(), 850, 650);
+        Scene scene = new Scene(loader.load(), 960, 720);
 
         scene.getStylesheets().add(
                 Objects.requireNonNull(HelloApplication.class.getResource("estilos.css")).toExternalForm()
         );
 
         stage.setTitle("HOTEL APP");
-        stage.setMinWidth(700);
-        stage.setMinHeight(550);
+        stage.setMinWidth(760);
+        stage.setMinHeight(580);
         stage.setScene(scene);
         stage.show();
+    }
+
+    @Override
+    public void stop() {
+        Voz.detener();
     }
 }

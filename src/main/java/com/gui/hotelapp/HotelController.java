@@ -21,6 +21,7 @@ public class HotelController implements Initializable {
     @FXML private TableColumn<Habitacion, String> colTipo, colEstado, colPrecio;
     @FXML private TextField txtNumero;
     @FXML private Label lblResultado;
+    @FXML private Button btnBuscar;
 
     private final Map<Integer, Habitacion> habitaciones = new HashMap<>();
 
@@ -58,6 +59,7 @@ public class HotelController implements Initializable {
         txtNumero.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ESCAPE) {
                 txtNumero.clear();
+                lblResultado.getStyleClass().removeAll("estado-ok", "estado-error", "estado-aviso");
                 lblResultado.setText("Introduce un número de habitación.");
                 txtNumero.requestFocus();
             }
@@ -68,35 +70,55 @@ public class HotelController implements Initializable {
     private void buscar() {
         String texto = txtNumero.getText().trim();
         if (texto.isEmpty()) {
-            lblResultado.setText("Escribe un número de habitación.");
+            mostrar("⚠ Escribe un número de habitación.", "estado-aviso");
             return;
         }
         int numero;
         try {
             numero = Integer.parseInt(texto);
         } catch (NumberFormatException e) {
-            lblResultado.setText("«" + texto + "» no es un número válido.");
+            mostrar("✖ «" + texto + "» no es un número válido. Escribe solo cifras (ej. 112).", "estado-error");
             return;
         }
 
         Habitacion h = habitaciones.get(numero);
         if (h == null) {
-            lblResultado.setText("La habitación " + numero + " no existe.");
+            mostrar("✖ La habitación " + numero + " no existe.", "estado-error");
             return;
         }
         switch (h.estado()) {
-            case "disponible"    -> mostrar("✔ Habitación " + numero + ": DISPONIBLE (" + h.tipo() + ", " + h.precioNoche() + " €/noche)", "estado-ok");
-            case "ocupada"       -> mostrar("✖ Habitación " + numero + ": OCUPADA", "estado-error");
-            case "mantenimiento" -> mostrar("⚠ Habitación " + numero + ": en MANTENIMIENTO", "estado-aviso");
-            default              -> lblResultado.setText("Habitación " + numero + ": estado desconocido (" + h.estado() + ")");
+            case "disponible"    -> mostrar("✔ Habitación " + numero + ": DISPONIBLE\n" + detalle(h), "estado-ok");
+            case "ocupada"       -> mostrar("✖ Habitación " + numero + ": OCUPADA\n" + detalle(h), "estado-error");
+            case "mantenimiento" -> mostrar("⚠ Habitación " + numero + ": en MANTENIMIENTO\n" + detalle(h), "estado-aviso");
+            default              -> mostrar("Habitación " + numero + ": estado desconocido (" + h.estado() + ")", null);
         }
         tablaHabitaciones.getSelectionModel().select(h);
         tablaHabitaciones.scrollTo(h);
     }
 
+    /** Línea de detalle de la habitación (tipo, precio, capacidad y planta). */
+    private static String detalle(Habitacion h) {
+        double precio = h.precioNoche();
+        String importe = precio == Math.floor(precio) ? String.valueOf((long) precio) : String.valueOf(precio);
+        return "Tipo: " + h.tipo() + " · Precio: " + importe + " €/noche · Capacidad: "
+                + h.capacidad() + (h.capacidad() == 1 ? " persona" : " personas")
+                + " · Planta " + h.planta();
+    }
+
     private void mostrar(String texto, String claseEstado) {
         lblResultado.setText(texto);
         lblResultado.getStyleClass().removeAll("estado-ok", "estado-error", "estado-aviso");
-        lblResultado.getStyleClass().add(claseEstado);
+        if (claseEstado != null) lblResultado.getStyleClass().add(claseEstado);
+        Voz.leer(texto);
+    }
+
+    /** Activa o desactiva el botón por defecto (Enter) según la pestaña visible. */
+    public void setPantallaActiva(boolean activa) {
+        btnBuscar.setDefaultButton(activa);
+    }
+
+    /** Lleva el foco al campo de búsqueda. */
+    public void enfocar() {
+        javafx.application.Platform.runLater(txtNumero::requestFocus);
     }
 }

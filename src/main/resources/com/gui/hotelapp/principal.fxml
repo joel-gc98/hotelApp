@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.gui.hotelapp.PrincipalController"
+      styleClass="hotel-root">
+
+    <!-- ENCABEZADO COMPARTIDO -->
+    <VBox spacing="5">
+        <padding>
+            <Insets top="24" right="24" bottom="8" left="24"/>
+        </padding>
+
+        <Label text="Hotel Sol" styleClass="titulo-principal"/>
+        <Label text="Gestión de habitaciones y reservas" styleClass="subtitulo"/>
+    </VBox>
+
+    <!-- NAVEGACIÓN ENTRE PANTALLAS -->
+    <TabPane fx:id="tabs"
+             tabClosingPolicy="UNAVAILABLE"
+             VBox.vgrow="ALWAYS"
+             accessibleText="Secciones de la aplicación">
+
+        <Tab fx:id="tabHabitaciones" text="Habitaciones">
+            <tooltip><Tooltip text="Ctrl+1"/></tooltip>
+            <content>
+                <fx:include fx:id="habitaciones" source="vista.fxml"/>
+            </content>
+        </Tab>
+
+        <Tab fx:id="tabReservas" text="Reservas">
+            <tooltip><Tooltip text="Ctrl+2"/></tooltip>
+            <content>
+                <fx:include fx:id="reservas" source="reservas.fxml"/>
+            </content>
+        </Tab>
+
+        <Tab fx:id="tabAccesibilidad" text="Accesibilidad">
+            <tooltip><Tooltip text="Ctrl+3"/></tooltip>
+            <content>
+                <fx:include fx:id="accesibilidad" source="accesibilidad.fxml"/>
+            </content>
+        </Tab>
+    </TabPane>
+
+    <!-- BARRA DE ATAJOS (se muestra con "Navegación por teclado") -->
+    <Label fx:id="lblAtajos"
+           text="Atajos: Ctrl+1 Habitaciones · Ctrl+2 Reservas · Ctrl+3 Accesibilidad · Ctrl+F Buscar · Ctrl +/− Tamaño de letra"
+           wrapText="true"
+           minHeight="-Infinity"
+           maxWidth="Infinity"
+           styleClass="barra-atajos"/>
+
+</VBox>

@@ -1,134 +1,397 @@
+/* ============================================================
+   PALETA POR TEMAS
+   Todos los colores de la aplicación salen de estas variables.
+   Cada tema solo redefine la paleta; las reglas de abajo no cambian.
+   ============================================================ */
 
-/* FONDO GENERAL */
+/* TEMA CLARO (por defecto) */
+.root {
+    -h-fondo: #F4F6FA;
+    -h-superficie: #FFFFFF;
+    -h-fila-alt: #F8FAFC;
+    -h-cabecera: #E2E8F0;
+    -h-borde: #D5DCE5;
+    -h-borde-tabla: #CBD5E1;
+    -h-borde-campo: #64748B;
+    -h-titulo: #17365D;
+    -h-secundario: #475569;
+    -h-enlace: #1D4ED8;
+    -h-primario: #1D4ED8;
+    -h-primario-hover: #1E40AF;
+    -h-primario-texto: #FFFFFF;
+    -h-foco: #2563EB;
+    -h-foco-boton: #0F172A;
+    -h-seleccion: #BFDBFE;
+    -h-seleccion-texto: #172554;
+    -h-info-bg: #EFF6FF;
+    -h-info-texto: #1E3A8A;
+    -h-ok-bg: #DCFCE7;
+    -h-ok-texto: #166534;
+    -h-error-bg: #FEE2E2;
+    -h-error-texto: #991B1B;
+    -h-aviso-bg: #FEF3C7;
+    -h-aviso-texto: #92400E;
+}
+
+/* TEMA OSCURO (sobre PrimerDark) */
+.root.tema-oscuro {
+    -h-fondo: #0D1117;
+    -h-superficie: #161B22;
+    -h-fila-alt: #1C2128;
+    -h-cabecera: #21262D;
+    -h-borde: #30363D;
+    -h-borde-tabla: #30363D;
+    -h-borde-campo: #8B949E;
+    -h-titulo: #79C0FF;
+    -h-secundario: #9DA7B3;
+    -h-enlace: #79C0FF;
+    -h-primario: #1F6FEB;
+    -h-primario-hover: #1A5FD0;
+    -h-primario-texto: #FFFFFF;
+    -h-foco: #58A6FF;
+    -h-foco-boton: #FFFFFF;
+    -h-seleccion: #1F3A5F;
+    -h-seleccion-texto: #FFFFFF;
+    -h-info-bg: #12263F;
+    -h-info-texto: #A5D6FF;
+    -h-ok-bg: #12301B;
+    -h-ok-texto: #7EE787;
+    -h-error-bg: #3D1418;
+    -h-error-texto: #FFA198;
+    -h-aviso-bg: #3A2A0A;
+    -h-aviso-texto: #F2CC60;
+}
+
+/* TEMA ALTO CONTRASTE (negro, blanco y amarillo, sobre PrimerDark) */
+.root.tema-alto-contraste {
+    -h-fondo: #000000;
+    -h-superficie: #000000;
+    -h-fila-alt: #1A1A1A;
+    -h-cabecera: #000000;
+    -h-borde: #FFFFFF;
+    -h-borde-tabla: #FFFFFF;
+    -h-borde-campo: #FFFFFF;
+    -h-titulo: #FFFF00;
+    -h-secundario: #FFFFFF;
+    -h-enlace: #FFFF00;
+    -h-primario: #FFFF00;
+    -h-primario-hover: #FFFFFF;
+    -h-primario-texto: #000000;
+    -h-foco: #00FFFF;
+    -h-foco-boton: #00FFFF;
+    -h-seleccion: #FFFF00;
+    -h-seleccion-texto: #000000;
+    -h-info-bg: #000000;
+    -h-info-texto: #FFFFFF;
+    -h-ok-bg: #000000;
+    -h-ok-texto: #00FF00;
+    -h-error-bg: #000000;
+    -h-error-texto: #FF6666;
+    -h-aviso-bg: #000000;
+    -h-aviso-texto: #FFD700;
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+
+/* FONDO GENERAL (el tamaño de letra llega desde la escena y todo lo demás va en em) */
 .hotel-root {
-    -fx-background-color: #F4F6FA;
+    -fx-background-color: -h-fondo;
     -fx-font-family: "Arial";
-    -fx-font-size: 14px;
 }
 
 /* ENCABEZADO */
 .titulo-principal {
-    -fx-font-size: 26px;
+    -fx-font-size: 1.85em;
     -fx-font-weight: bold;
-    -fx-text-fill: #17365D;
+    -fx-text-fill: -h-titulo;
 }
 
 .subtitulo {
-    -fx-font-size: 14px;
-    -fx-text-fill: #475569;
+    -fx-font-size: 1em;
+    -fx-text-fill: -h-secundario;
 }
 
 /* TÍTULOS DE SECCIÓN */
 .titulo-seccion {
-    -fx-font-size: 17px;
+    -fx-font-size: 1.2em;
     -fx-font-weight: bold;
-    -fx-text-fill: #17365D;
+    -fx-text-fill: -h-titulo;
 }
 
-/* PANEL DE BÚSQUEDA */
-.panel-busqueda {
-    -fx-background-color: white;
+/* PANELES (búsqueda, formulario de reservas y accesibilidad) */
+.panel-busqueda,
+.panel-formulario,
+.panel-accesibilidad {
+    -fx-background-color: -h-superficie;
     -fx-padding: 18px;
     -fx-background-radius: 10px;
-    -fx-border-color: #D5DCE5;
+    -fx-border-color: -h-borde;
     -fx-border-radius: 10px;
 }
 
-/* CAMPO DE TEXTO */
-.text-field {
-    -fx-font-size: 14px;
-    -fx-pref-height: 38px;
+/* CAMPO DE TEXTO (clase "campo", para no afectar a los editores internos
+   de ComboBox, DatePicker y Spinner, que ya vienen estilados por AtlantaFX) */
+.campo {
+    -fx-font-size: 1em;
+    -fx-pref-height: 2.7em;
     -fx-background-radius: 6px;
     -fx-border-radius: 6px;
-    -fx-border-color: #94A3B8;
+    -fx-border-color: -h-borde-campo;
 }
 
 /* FOCO DEL CAMPO */
-.text-field:focused {
-    -fx-border-color: #2563EB;
+.campo:focused {
+    -fx-border-color: -h-foco;
     -fx-border-width: 2px;
 }
 
 /* BOTÓN PRINCIPAL */
 .boton-principal {
-    -fx-background-color: #1D4ED8;
-    -fx-text-fill: white;
+    -fx-background-color: -h-primario;
+    -fx-text-fill: -h-primario-texto;
     -fx-font-weight: bold;
-    -fx-font-size: 14px;
+    -fx-font-size: 1em;
     -fx-padding: 10px 22px;
     -fx-background-radius: 6px;
     -fx-cursor: hand;
 }
 
 .boton-principal:hover {
-    -fx-background-color: #1E40AF;
+    -fx-background-color: -h-primario-hover;
 }
 
 .boton-principal:focused {
-    -fx-border-color: #0F172A;
+    -fx-border-color: -h-foco-boton;
     -fx-border-width: 2px;
 }
 
 /* TABLA */
 .table-view {
-    -fx-background-color: white;
-    -fx-border-color: #CBD5E1;
+    -fx-background-color: -h-superficie;
+    -fx-border-color: -h-borde-tabla;
     -fx-border-radius: 6px;
 }
 
 .table-view .column-header-background {
-    -fx-background-color: #E2E8F0;
+    -fx-background-color: -h-cabecera;
 }
 
 .table-view .column-header {
-    -fx-background-color: #E2E8F0;
-    -fx-size: 40px;
+    -fx-background-color: -h-cabecera;
+    -fx-size: 2.9em;
 }
 
 .table-view .column-header .label {
-    -fx-text-fill: #17365D;
+    -fx-text-fill: -h-titulo;
     -fx-font-weight: bold;
-    -fx-font-size: 13px;
+    -fx-font-size: 0.93em;
 }
 
 .table-row-cell {
-    -fx-cell-size: 38px;
+    -fx-cell-size: 2.7em;
 }
 
 .table-row-cell:odd {
-    -fx-background-color: #F8FAFC;
+    -fx-background-color: -h-fila-alt;
 }
 
 .table-row-cell:even {
-    -fx-background-color: white;
+    -fx-background-color: -h-superficie;
 }
 
 .table-row-cell:selected {
-    -fx-background-color: #BFDBFE;
-    -fx-text-background-color: #172554;
+    -fx-background-color: -h-seleccion;
+    -fx-text-background-color: -h-seleccion-texto;
+}
+
+.table-row-cell:selected .table-cell {
+    -fx-text-fill: -h-seleccion-texto;
 }
 
 /* RESULTADO */
 .resultado {
-    -fx-background-color: #EFF6FF;
-    -fx-text-fill: #1E3A8A;
+    -fx-background-color: -h-info-bg;
+    -fx-text-fill: -h-info-texto;
     -fx-padding: 12px;
     -fx-background-radius: 6px;
     -fx-font-weight: bold;
 }
 
-/* ESTADOS */
+/* ESTADOS (siempre acompañados de símbolo y texto, nunca solo color) */
 .estado-ok {
-    -fx-background-color: #DCFCE7;
-    -fx-text-fill: #166534;
+    -fx-background-color: -h-ok-bg;
+    -fx-text-fill: -h-ok-texto;
 }
 
 .estado-error {
-    -fx-background-color: #FEE2E2;
-    -fx-text-fill: #991B1B;
+    -fx-background-color: -h-error-bg;
+    -fx-text-fill: -h-error-texto;
 }
 
 .estado-aviso {
-    -fx-background-color: #FEF3C7;
-    -fx-text-fill: #92400E;
+    -fx-background-color: -h-aviso-bg;
+    -fx-text-fill: -h-aviso-texto;
+}
+
+/* ============================================================
+   NAVEGACIÓN Y PANTALLAS DE RESERVAS Y ACCESIBILIDAD
+   ============================================================ */
+
+/* Pestañas */
+.tab-pane .tab .tab-label {
+    -fx-font-size: 1em;
+    -fx-font-weight: bold;
+    -fx-text-fill: -h-titulo;
+}
+
+.tab-pane .tab:selected .tab-label {
+    -fx-text-fill: -h-enlace;
+}
+
+/* Zona con scroll */
+.hotel-scroll,
+.hotel-scroll > .viewport {
+    -fx-background-color: -h-fondo;
+    -fx-border-color: transparent;
+}
+
+/* Etiquetas de los paneles */
+.panel-formulario .label,
+.panel-accesibilidad .label {
+    -fx-text-fill: -h-titulo;
+}
+
+.panel-formulario .label,
+.panel-accesibilidad .etiqueta-opcion,
+.panel-accesibilidad .atajo-tecla,
+.panel-accesibilidad .titulo-seccion {
+    -fx-font-weight: bold;
+}
+
+.panel-formulario .titulo-seccion,
+.panel-accesibilidad .titulo-seccion {
+    -fx-font-size: 1.2em;
+}
+
+.panel-accesibilidad .atajo-tecla {
+    -fx-text-fill: -h-enlace;
+}
+
+/* Listas desplegables, fechas y spinner con la misma altura que los campos */
+.combo-box,
+.date-picker,
+.spinner {
+    -fx-pref-height: 2.7em;
+    -fx-font-size: 1em;
+}
+
+/* Resumen del importe */
+.panel-formulario .resumen {
+    -fx-text-fill: -h-titulo;
+    -fx-font-size: 1em;
+    -fx-font-weight: bold;
+}
+
+/* Resultado dentro del formulario */
+.panel-formulario .resultado {
+    -fx-text-fill: -h-info-texto;
+}
+
+.panel-formulario .resultado.estado-ok {
+    -fx-text-fill: -h-ok-texto;
+}
+
+.panel-formulario .resultado.estado-error {
+    -fx-text-fill: -h-error-texto;
+}
+
+.panel-formulario .resultado.estado-aviso {
+    -fx-text-fill: -h-aviso-texto;
+}
+
+/* BOTÓN SECUNDARIO */
+.boton-secundario {
+    -fx-background-color: -h-superficie;
+    -fx-text-fill: -h-titulo;
+    -fx-font-weight: bold;
+    -fx-font-size: 1em;
+    -fx-padding: 10px 22px;
+    -fx-background-radius: 6px;
+    -fx-border-color: -h-borde-campo;
+    -fx-border-radius: 6px;
+    -fx-cursor: hand;
+}
+
+.boton-secundario:hover {
+    -fx-background-color: -h-cabecera;
+}
+
+.boton-secundario:focused {
+    -fx-border-color: -h-foco-boton;
+    -fx-border-width: 2px;
+}
+
+/* ESTADO DE LA RESERVA EN LA TABLA (símbolo + texto + color) */
+.table-cell.celda-ok {
+    -fx-text-fill: -h-ok-texto;
+    -fx-font-weight: bold;
+}
+
+.table-cell.celda-aviso {
+    -fx-text-fill: -h-aviso-texto;
+    -fx-font-weight: bold;
+}
+
+.table-cell.celda-error {
+    -fx-text-fill: -h-error-texto;
+    -fx-font-weight: bold;
+}
+
+.table-cell.celda-neutro {
+    -fx-text-fill: -h-secundario;
+    -fx-font-weight: bold;
+}
+
+/* BARRA DE ATAJOS */
+.barra-atajos {
+    -fx-background-color: -h-cabecera;
+    -fx-text-fill: -h-titulo;
+    -fx-font-size: 0.93em;
+    -fx-padding: 8px 24px;
+}
+
+/* ============================================================
+   OPCIONES DE ACCESIBILIDAD
+   ============================================================ */
+
+/* Foco reforzado ("Navegación por teclado"): borde grueso y muy visible */
+.root.foco-reforzado .campo:focused,
+.root.foco-reforzado .boton-secundario:focused,
+.root.foco-reforzado .table-view:focused {
+    -fx-border-color: -h-foco;
+    -fx-border-width: 3px;
+}
+
+.root.foco-reforzado .boton-principal:focused {
+    -fx-border-color: -h-foco-boton;
+    -fx-border-width: 3px;
+}
+
+/* Alto contraste: bordes marcados y botón que cambia de color al enfocarlo */
+.root.tema-alto-contraste .panel-busqueda,
+.root.tema-alto-contraste .panel-formulario,
+.root.tema-alto-contraste .panel-accesibilidad {
+    -fx-border-width: 2px;
+}
+
+.root.tema-alto-contraste .resultado {
+    -fx-border-color: -h-borde;
+    -fx-border-width: 2px;
+    -fx-border-radius: 6px;
+}
+
+.root.tema-alto-contraste .boton-principal:focused {
+    -fx-background-color: -h-primario-hover;
 }

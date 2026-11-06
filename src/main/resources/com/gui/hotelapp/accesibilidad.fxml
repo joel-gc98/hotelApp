@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import atlantafx.base.controls.ToggleSwitch?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<ScrollPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.gui.hotelapp.AccesibilidadController"
+            fitToWidth="true"
+            hbarPolicy="NEVER"
+            styleClass="hotel-scroll">
+
+    <VBox spacing="16" styleClass="hotel-root">
+
+        <padding>
+            <Insets top="24" right="24" bottom="24" left="24"/>
+        </padding>
+
+        <fx:define>
+            <ToggleGroup fx:id="grupoTema"/>
+        </fx:define>
+
+        <!-- OPCIONES -->
+        <VBox spacing="18" styleClass="panel-accesibilidad">
+
+            <Label text="Opciones de accesibilidad" styleClass="titulo-seccion"/>
+
+            <!-- Tamaño de letra -->
+            <VBox spacing="8">
+                <Label text="Tamaño de letra" styleClass="etiqueta-opcion"/>
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Button fx:id="btnMenos" text="A-" onAction="#reducirTexto"
+                            styleClass="boton-secundario"
+                            accessibleText="Reducir tamaño de letra"/>
+                    <Button fx:id="btnNormal" text="A" onAction="#textoNormal"
+                            styleClass="boton-secundario"
+                            accessibleText="Tamaño de letra normal"/>
+                    <Button fx:id="btnMas" text="A+" onAction="#aumentarTexto"
+                            styleClass="boton-secundario"
+                            accessibleText="Aumentar tamaño de letra"/>
+                    <Label fx:id="lblTamano" text="Tamaño actual: 14 px (100 %)"/>
+                </HBox>
+            </VBox>
+
+            <!-- Tema -->
+            <VBox spacing="8">
+                <Label text="Tema" styleClass="etiqueta-opcion"/>
+                <HBox spacing="24" alignment="CENTER_LEFT">
+                    <RadioButton fx:id="rbClaro" text="Claro" toggleGroup="$grupoTema" selected="true"
+                                 accessibleHelp="Fondo claro con texto oscuro."/>
+                    <RadioButton fx:id="rbOscuro" text="Oscuro" toggleGroup="$grupoTema"
+                                 accessibleHelp="Fondo oscuro con texto claro."/>
+                    <RadioButton fx:id="rbContraste" text="Alto contraste" toggleGroup="$grupoTema"
+                                 accessibleHelp="Fondo negro, texto blanco y amarillo, y bordes marcados."/>
+                </HBox>
+            </VBox>
+
+            <!-- Interruptores -->
+            <VBox spacing="12">
+                <ToggleSwitch fx:id="swTeclado" selected="true"
+                              text="Navegación por teclado (foco reforzado y atajos visibles)"
+                              accessibleHelp="Marca con un borde grueso el control activo y muestra la barra de atajos."/>
+                <ToggleSwitch fx:id="swVoz"
+                              text="Leer información en voz alta (prototipo)"
+                              accessibleHelp="Lee los resultados y avisos con la voz del sistema."/>
+            </VBox>
+        </VBox>
+
+        <!-- ATAJOS -->
+        <VBox spacing="12" styleClass="panel-accesibilidad">
+
+            <Label text="Atajos de teclado" styleClass="titulo-seccion"/>
+
+            <GridPane hgap="24" vgap="8">
+                <columnConstraints>
+                    <ColumnConstraints minWidth="190"/>
+                    <ColumnConstraints hgrow="ALWAYS"/>
+                </columnConstraints>
+
+                <Label text="Ctrl + 1 / 2 / 3" styleClass="atajo-tecla" GridPane.rowIndex="0"/>
+                <Label text="Ir a Habitaciones, Reservas o Accesibilidad" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                <Label text="Ctrl + F" styleClass="atajo-tecla" GridPane.rowIndex="1"/>
+                <Label text="Ir al campo de búsqueda de habitación" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                <Label text="Alt + letra subrayada" styleClass="atajo-tecla" GridPane.rowIndex="2"/>
+                <Label text="Ir a un campo del formulario o pulsar un botón" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                <Label text="Enter" styleClass="atajo-tecla" GridPane.rowIndex="3"/>
+                <Label text="Buscar o reservar, según la pantalla" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+                <Label text="Esc" styleClass="atajo-tecla" GridPane.rowIndex="4"/>
+                <Label text="Limpiar la búsqueda de habitación" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+
+                <Label text="Ctrl + / Ctrl − / Ctrl 0" styleClass="atajo-tecla" GridPane.rowIndex="5"/>
+                <Label text="Aumentar, reducir y restablecer el tamaño de letra" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+            </GridPane>
+        </VBox>
+
+    </VBox>
+</ScrollPane>

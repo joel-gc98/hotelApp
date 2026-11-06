@@ -13,15 +13,6 @@
         <Insets top="24" right="24" bottom="24" left="24"/>
     </padding>
 
-    <!-- ENCABEZADO -->
-    <VBox spacing="5">
-        <Label text="Hotel Sol"
-               styleClass="titulo-principal"/>
-
-        <Label text="Gestión de habitaciones y reservas"
-               styleClass="subtitulo"/>
-    </VBox>
-
     <!-- TABLA -->
     <VBox spacing="10" VBox.vgrow="ALWAYS">
 
@@ -32,6 +23,10 @@
                    prefHeight="280"
                    VBox.vgrow="ALWAYS"
                    accessibleText="Listado de habitaciones del hotel">
+
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+            </columnResizePolicy>
 
             <columns>
                 <TableColumn fx:id="colNumero"
@@ -70,12 +65,14 @@
         <HBox spacing="12" alignment="CENTER_LEFT">
 
             <TextField fx:id="txtNumero"
+                       styleClass="campo"
                        promptText="Ej. 112"
                        accessibleText="Número de habitación"
                        accessibleHelp="Introduce el número de habitación que quieres consultar."
                        HBox.hgrow="ALWAYS"/>
 
-            <Button text="_Buscar"
+            <Button fx:id="btnBuscar"
+                    text="_Buscar"
                     mnemonicParsing="true"
                     defaultButton="true"
                     onAction="#buscar"
@@ -86,6 +83,8 @@
         <Label fx:id="lblResultado"
                text="Introduce un número de habitación para consultar su estado."
                wrapText="true"
+               minHeight="-Infinity"
+               maxWidth="Infinity"
                styleClass="resultado"/>
 
     </VBox>
