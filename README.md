@@ -182,7 +182,14 @@ A continuación se muestran las evidencias del proceso de rediseño:
 
 #### Interfaz final implementada
 
-[CLICK AQUI](docs/imagenes/interfaz_final.png)
+PANTALLA HABITACIONES
+[CLICK AQUI](docs/imagenes/interfaz_final_habitaciones.png)
+
+PANTALLA RESERVAS
+[CLICK AQUI](docs/imagenes/interfaz_final_reservas.png)
+
+PANTALLA ACCESIBILIDAD
+[CLICK AQUI](docs/imagenes/interfaz_final_accesibilidad.png)
 
 Para consultar la explicación detallada de los problemas detectados, los conceptos de accesibilidad y la justificación de las mejoras, visita la [documentación de accesibilidad](docs/ACCESIBILIDAD.md).
 
