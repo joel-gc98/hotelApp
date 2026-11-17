@@ -18,6 +18,29 @@
         <Label text="Gestión de habitaciones y reservas" styleClass="subtitulo"/>
     </VBox>
 
+    <!-- CONTROL POR VOZ -->
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <padding>
+            <Insets top="0" right="24" bottom="8" left="24"/>
+        </padding>
+
+        <Button fx:id="btnVoz"
+                text="🎤 _Hablar"
+                mnemonicParsing="true"
+                onAction="#escucharComando"
+                styleClass="boton-secundario"
+                accessibleText="Dar una orden por voz"
+                accessibleHelp="Escucha durante cinco segundos. Atajo: Control M."/>
+
+        <Label fx:id="lblVoz"
+               text="Pulsa Hablar y di una orden, por ejemplo: ir a reservas."
+               wrapText="true"
+               minHeight="-Infinity"
+               maxWidth="Infinity"
+               styleClass="resultado"
+               HBox.hgrow="ALWAYS"/>
+    </HBox>
+
     <!-- NAVEGACIÓN ENTRE PANTALLAS -->
     <TabPane fx:id="tabs"
              tabClosingPolicy="UNAVAILABLE"
