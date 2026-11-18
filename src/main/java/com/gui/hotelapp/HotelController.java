@@ -1,6 +1,8 @@
 package com.gui.hotelapp;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -13,6 +15,7 @@ import org.controlsfx.validation.Validator;
 
 import java.net.URL;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class HotelController implements Initializable {
 
@@ -24,7 +27,8 @@ public class HotelController implements Initializable {
     @FXML private Button btnBuscar;
 
     private final Map<Integer, Habitacion> habitaciones = new HashMap<>();
-
+    private final ObservableList<Habitacion> todas = FXCollections.observableArrayList();
+    private final FilteredList<Habitacion> visibles = new FilteredList<>(todas);
     private final ValidationSupport validacion = new ValidationSupport();
 
     @Override
@@ -38,7 +42,8 @@ public class HotelController implements Initializable {
         try {
             List<Habitacion> lista = HotelRepository.cargarHabitaciones();
             for (Habitacion h : lista) habitaciones.put(h.numero(), h);
-            tablaHabitaciones.setItems(FXCollections.observableArrayList(lista));
+            todas.setAll(lista);
+            tablaHabitaciones.setItems(visibles);
         } catch (Exception e) {
             lblResultado.setText("Error al leer reservas.xml: " + e.getMessage());
         }
@@ -92,6 +97,7 @@ public class HotelController implements Initializable {
             case "mantenimiento" -> mostrar("⚠ Habitación " + numero + ": en MANTENIMIENTO\n" + detalle(h), "estado-aviso");
             default              -> mostrar("Habitación " + numero + ": estado desconocido (" + h.estado() + ")", null);
         }
+        visibles.setPredicate(x -> true);
         tablaHabitaciones.getSelectionModel().select(h);
         tablaHabitaciones.scrollTo(h);
     }
@@ -120,5 +126,32 @@ public class HotelController implements Initializable {
     /** Lleva el foco al campo de búsqueda. */
     public void enfocar() {
         javafx.application.Platform.runLater(txtNumero::requestFocus);
+    }
+
+    /** Búsqueda por voz: rellena el campo y lanza la búsqueda normal. */
+    public void buscarPorVoz(String numero) {
+        txtNumero.setText(numero);
+        buscar();
+    }
+
+    /** Deja en la tabla solo las habitaciones disponibles. */
+    public void mostrarDisponibles() {
+        visibles.setPredicate(h -> "disponible".equals(h.estado()));
+        int total = visibles.size();
+        if (total == 0) {
+            mostrar("⚠ No hay habitaciones disponibles.", "estado-aviso");
+            return;
+        }
+        String numeros = visibles.stream().map(h -> String.valueOf(h.numero()))
+                .collect(Collectors.joining(", "));
+        String lista = total <= 10 ? ": " + numeros : ". Se muestran en la tabla.";
+        mostrar("✔ " + total + (total == 1 ? " habitación disponible" : " habitaciones disponibles") + lista,
+                "estado-ok");
+    }
+
+    /** Quita el filtro y vuelve a mostrar todas las habitaciones. */
+    public void mostrarTodas() {
+        visibles.setPredicate(h -> true);
+        mostrar("✔ Se muestran todas las habitaciones (" + todas.size() + ").", "estado-ok");
     }
 }

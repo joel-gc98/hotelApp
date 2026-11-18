@@ -113,41 +113,29 @@ public class PrincipalController implements Initializable {
     private void ejecutar(String texto) {
         var cmd = InterpreteComandos.interpretar(texto);
         switch (cmd.tipo()) {
-            case IR_HABITACIONES -> {
-                tabs.getSelectionModel().select(tabHabitaciones);
-                habitacionesController.enfocar();
-                confirmar("Mostrando habitaciones");
-            }
-            case IR_RESERVAS -> {
-                tabs.getSelectionModel().select(tabReservas);
-                reservasController.enfocar();
-                confirmar("Mostrando reservas");
-            }
-            case IR_ACCESIBILIDAD -> {
-                tabs.getSelectionModel().select(tabAccesibilidad);
-                accesibilidadController.enfocar();
-                confirmar("Mostrando accesibilidad");
-            }
-            case AUMENTAR_TEXTO -> { accesibilidadController.aumentarTexto(); confirmar("Letra aumentada"); }
-            case REDUCIR_TEXTO  -> { accesibilidadController.reducirTexto();  confirmar("Letra reducida"); }
-            case TEXTO_NORMAL   -> { accesibilidadController.textoNormal();   confirmar("Letra normal"); }
+            case IR_HABITACIONES -> irA(tabHabitaciones, habitacionesController::enfocar, "Mostrando habitaciones");
+            case IR_RESERVAS -> irA(tabReservas, reservasController::enfocar, "Mostrando reservas");
+            case IR_ACCESIBILIDAD -> irA(tabAccesibilidad, accesibilidadController::enfocar, "Mostrando accesibilidad");
 
-            // Pendientes: dependen de HotelController y ReservasController
-            case BUSCAR_HABITACION -> {
-                tabs.getSelectionModel().select(tabHabitaciones);
-                // habitacionesController.buscarPorVoz(cmd.argumento());
-                confirmar("Buscar habitación " + cmd.argumento());
-            }
-            case HABITACIONES_DISPONIBLES -> {
-                tabs.getSelectionModel().select(tabHabitaciones);
-                // habitacionesController.mostrarDisponibles();
-                confirmar("Habitaciones disponibles");
-            }
-            case BUSCAR_RESERVA -> {
-                tabs.getSelectionModel().select(tabReservas);
-                // reservasController.buscarPorVoz(cmd.argumento());
-                confirmar("Buscar reserva de " + cmd.argumento());
-            }
+            case BUSCAR_HABITACION -> delegarEn(tabHabitaciones, texto,
+                    () -> habitacionesController.buscarPorVoz(cmd.argumento()));
+            case HABITACIONES_DISPONIBLES -> delegarEn(tabHabitaciones, texto, habitacionesController::mostrarDisponibles);
+            case MOSTRAR_TODAS_HABITACIONES -> delegarEn(tabHabitaciones, texto, habitacionesController::mostrarTodas);
+            case BUSCAR_RESERVA -> delegarEn(tabReservas, texto,
+                    () -> reservasController.buscarPorVoz(cmd.argumento()));
+            case MOSTRAR_TODAS_RESERVAS -> delegarEn(tabReservas, texto, reservasController::mostrarTodas);
+
+            case AUMENTAR_TEXTO -> delegar(texto, accesibilidadController::aumentarTexto);
+            case REDUCIR_TEXTO -> delegar(texto, accesibilidadController::reducirTexto);
+            case TEXTO_NORMAL -> delegar(texto, accesibilidadController::textoNormal);
+            case TEMA_CLARO -> delegar(texto, accesibilidadController::temaClaro);
+            case TEMA_OSCURO -> delegar(texto, accesibilidadController::temaOscuro);
+            case TEMA_ALTO_CONTRASTE -> delegar(texto, accesibilidadController::temaAltoContraste);
+            case LECTURA_ON -> delegar(texto, () -> accesibilidadController.lecturaEnVoz(true));
+            case LECTURA_OFF -> delegar(texto, () -> accesibilidadController.lecturaEnVoz(false));
+            case TECLADO_ON -> delegar(texto, () -> accesibilidadController.navegacionTeclado(true));
+            case TECLADO_OFF -> delegar(texto, () -> accesibilidadController.navegacionTeclado(false));
+
             default -> {
                 mostrarVoz("⚠ No entendí la orden: «" + texto + "»", "estado-aviso");
                 Voz.leer("No entendí la orden");
@@ -155,9 +143,23 @@ public class PrincipalController implements Initializable {
         }
     }
 
-    private void confirmar(String mensaje) {
+    /** Navegación: cambia de pestaña, lleva el foco y lo confirma en voz alta. */
+    private void irA(Tab tab, Runnable enfocar, String mensaje) {
+        tabs.getSelectionModel().select(tab);
+        enfocar.run();
         mostrarVoz("✔ " + mensaje, "estado-ok");
-        Voz.leer(mensaje);   // solo suena si la opción de lectura en voz alta está activada
+        Voz.leer(mensaje);
+    }
+
+    /** La acción ya informa (y habla) por sí misma; aquí solo se muestra lo que se entendió. */
+    private void delegar(String texto, Runnable accion) {
+        accion.run();
+        mostrarVoz("✔ Entendido: «" + texto + "»", "estado-ok");
+    }
+
+    private void delegarEn(Tab tab, String texto, Runnable accion) {
+        tabs.getSelectionModel().select(tab);
+        delegar(texto, accion);
     }
 
     private void mostrarVoz(String texto, String estado) {

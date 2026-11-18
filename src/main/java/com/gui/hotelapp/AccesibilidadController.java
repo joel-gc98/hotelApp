@@ -75,6 +75,11 @@ public class AccesibilidadController implements Initializable {
     public void enfocar() {
         javafx.application.Platform.runLater(btnNormal::requestFocus);
     }
+    public void temaClaro()          { rbClaro.setSelected(true); }
+    public void temaOscuro()         { rbOscuro.setSelected(true); }
+    public void temaAltoContraste()  { rbContraste.setSelected(true); }
+    public void lecturaEnVoz(boolean activa)       { swVoz.setSelected(activa); }
+    public void navegacionTeclado(boolean activa)  { swTeclado.setSelected(activa); }
 
     // ------------------------------------------------------------ tamaño de letra
 
